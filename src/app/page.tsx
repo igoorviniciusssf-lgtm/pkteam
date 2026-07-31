@@ -120,14 +120,34 @@ export default function Home() {
               value={days}
               onChange={(e) => setDays(e.target.value)}
               min="1"
-              className="w-full md:w-32 bg-black/50 border border-gray-800 rounded-lg p-3 text-white focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition"
-              required
+              className="w-24 bg-black/50 border border-gray-800 rounded-lg p-3 text-white focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition"
             />
             <button
               type="submit"
-              className="bg-red-700 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-medium transition-all shadow-[0_0_15px_rgba(185,28,28,0.5)] hover:shadow-[0_0_25px_rgba(220,38,38,0.8)] flex items-center justify-center gap-2"
+              className="bg-green-700 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-medium transition-all shadow-[0_0_15px_rgba(21,128,61,0.5)] hover:shadow-[0_0_25px_rgba(34,197,94,0.8)] flex items-center justify-center gap-2"
             >
               <ShieldAlert size={18} /> Cadastrar Imunidade
+            </button>
+            <button
+              type="button"
+              onClick={async () => {
+                if (!nick) return;
+                try {
+                  await fetch("/api/players", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ nick, days: 0 }),
+                  });
+                  setNick("");
+                  setDays("7");
+                  fetchPlayers();
+                } catch (e) {
+                  console.error(e);
+                }
+              }}
+              className="bg-red-900/50 hover:bg-red-800 text-red-200 border border-red-700/50 px-6 py-3 rounded-lg font-medium transition-all shadow-[0_0_15px_rgba(153,27,27,0.3)] hover:shadow-[0_0_25px_rgba(220,38,38,0.5)] flex items-center justify-center gap-2"
+            >
+              <Skull size={18} /> Marcar como Alvo
             </button>
           </form>
         </section>
