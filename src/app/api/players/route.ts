@@ -22,7 +22,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Nick é obrigatório' }, { status: 400 });
     }
 
-    const expiresAt = addDays(new Date(), Number(days));
+    // Se days for 0 (Alvo), coloca a data no passado para garantir que caia no Alvo independente do fuso horário
+    const expiresAt = Number(days) === 0 ? addDays(new Date(), -1) : addDays(new Date(), Number(days));
 
     const player = await prisma.player.upsert({
       where: { nick },
