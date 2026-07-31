@@ -141,7 +141,7 @@ export default function Home() {
             <div className="space-y-4">
               {activePlayers.map((player) => {
                 const expires = new Date(player.expiresAt);
-                const totalMs = expires.getTime() - new Date(player.createdAt || player.expiresAt).getTime();
+                const totalMs = 7 * 24 * 60 * 60 * 1000; // 7 dias em milissegundos
                 const remainingMs = expires.getTime() - now.getTime();
                 const progress = Math.max(0, Math.min(100, (remainingMs / totalMs) * 100));
 
