@@ -155,50 +155,50 @@ export default function Home() {
         <div className="grid md:grid-cols-2 gap-8">
           {/* Active Players */}
           <section>
-            <h2 className="text-2xl font-bold mb-6 text-green-500 flex items-center gap-2 drop-shadow-[0_0_8px_rgba(34,197,94,0.5)]">
-              <ShieldAlert size={24} /> Imunes ({activePlayers.length})
+            <h2 className="text-xl font-bold mb-4 text-green-500 flex items-center gap-2 drop-shadow-[0_0_8px_rgba(34,197,94,0.5)]">
+              <ShieldAlert size={20} /> Imunes ({activePlayers.length})
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {activePlayers.map((player) => {
                 const expires = new Date(player.expiresAt);
-                const totalMs = 7 * 24 * 60 * 60 * 1000; // 7 dias em milissegundos
+                const totalMs = 7 * 24 * 60 * 60 * 1000;
                 const remainingMs = expires.getTime() - now.getTime();
                 const progress = Math.max(0, Math.min(100, (remainingMs / totalMs) * 100));
 
                 return (
-                  <div key={player.id} className="glass-panel p-5 rounded-xl border border-green-900/30">
-                    <div className="flex justify-between items-start mb-3">
-                      <h3 className="text-xl font-bold text-white truncate">{player.nick}</h3>
+                  <div key={player.id} className="glass-panel p-3 rounded-lg border border-green-900/30">
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-base font-bold text-white truncate">{player.nick}</h3>
                       <button onClick={() => removePlayer(player.id)} className="text-gray-500 hover:text-red-500 transition">
                         &times;
                       </button>
                     </div>
-                    <div className="flex items-center gap-2 text-green-400 mb-1 text-sm font-medium">
-                      <Clock size={16} />
+                    <div className="flex items-center gap-1.5 text-green-400 mb-1.5 text-xs font-medium">
+                      <Clock size={12} />
                       {formatDistanceToNow(expires, { locale: ptBR })} restantes
                     </div>
-                    <div className="w-full bg-gray-900 rounded-full h-1.5 mb-4 overflow-hidden">
+                    <div className="w-full bg-gray-900 rounded-full h-1 mb-2 overflow-hidden">
                       <div
-                        className="bg-gradient-to-r from-green-600 to-green-400 h-1.5 rounded-full transition-all duration-1000"
+                        className="bg-gradient-to-r from-green-600 to-green-400 h-1 rounded-full transition-all duration-1000"
                         style={{ width: `${progress}%` }}
                       ></div>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 text-sm text-gray-400 bg-black/40 p-3 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <Map size={14} className="text-gray-500" />
-                        <span>{player.map || "Aguardando API..."}</span>
+                    <div className="grid grid-cols-2 gap-2 text-xs text-gray-400 bg-black/40 p-2 rounded-md">
+                      <div className="flex items-center gap-1.5">
+                        <Map size={12} className="text-gray-500" />
+                        <span className="truncate">{player.map || "Aguardando API..."}</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin size={14} className="text-gray-500" />
-                        <span>{player.coords || "---"}</span>
+                      <div className="flex items-center gap-1.5">
+                        <MapPin size={12} className="text-gray-500" />
+                        <span className="truncate">{player.coords || "---"}</span>
                       </div>
                     </div>
                   </div>
                 );
               })}
               {activePlayers.length === 0 && (
-                <div className="text-gray-500 text-center p-8 border border-dashed border-gray-800 rounded-xl">
-                  Nenhum jogador imune no momento.
+                <div className="text-gray-500 text-sm text-center p-6 border border-dashed border-gray-800 rounded-lg">
+                  Nenhum imune no momento.
                 </div>
               )}
             </div>
@@ -206,16 +206,16 @@ export default function Home() {
 
           {/* Expired Players */}
           <section>
-            <h2 className="text-2xl font-bold mb-6 text-red-500 flex items-center gap-2 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">
-              <Skull size={24} /> Alvos / Expirados ({expiredPlayers.length})
+            <h2 className="text-xl font-bold mb-4 text-red-500 flex items-center gap-2 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">
+              <Skull size={20} /> Alvos / Expirados ({expiredPlayers.length})
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {expiredPlayers.map((player) => (
-                <div key={player.id} className="glass-panel p-5 rounded-xl border border-red-900/50 bg-red-950/20">
-                  <div className="flex justify-between items-start mb-3">
+                <div key={player.id} className="glass-panel p-3 rounded-lg border border-red-900/50 bg-red-950/20">
+                  <div className="flex justify-between items-start mb-2">
                     <div>
-                      <h3 className="text-xl font-bold text-red-400 truncate">{player.nick}</h3>
-                      <div className="text-sm text-red-500/80 mt-1 uppercase font-bold tracking-widest">
+                      <h3 className="text-base font-bold text-red-400 truncate">{player.nick}</h3>
+                      <div className="text-[10px] text-red-500/80 uppercase font-bold tracking-widest mt-0.5">
                         Livre para Matar
                       </div>
                     </div>
@@ -224,27 +224,27 @@ export default function Home() {
                     </button>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-2 text-sm text-gray-400 bg-black/60 p-3 rounded-lg mb-4">
-                    <div className="flex items-center gap-2">
-                      <Map size={14} className="text-red-900" />
-                      <span>{player.map || "Aguardando API..."}</span>
+                  <div className="grid grid-cols-2 gap-2 text-xs text-gray-400 bg-black/60 p-2 rounded-md mb-3">
+                    <div className="flex items-center gap-1.5">
+                      <Map size={12} className="text-red-900" />
+                      <span className="truncate">{player.map || "Aguardando API..."}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin size={14} className="text-red-900" />
-                      <span>{player.coords || "---"}</span>
+                    <div className="flex items-center gap-1.5">
+                      <MapPin size={12} className="text-red-900" />
+                      <span className="truncate">{player.coords || "---"}</span>
                     </div>
                   </div>
 
                   <button
                     onClick={() => renewPlayer(player.id)}
-                    className="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 rounded-lg font-medium transition flex items-center justify-center gap-2 border border-gray-700 hover:border-gray-500"
+                    className="w-full bg-gray-800/80 hover:bg-gray-700 text-gray-200 py-1.5 rounded-md font-medium transition flex items-center justify-center gap-1.5 border border-gray-700 hover:border-gray-500 text-xs"
                   >
-                    <RefreshCw size={16} /> Renovar 7 Dias
+                    <RefreshCw size={12} /> Renovar 7 Dias
                   </button>
                 </div>
               ))}
               {expiredPlayers.length === 0 && (
-                <div className="text-gray-500 text-center p-8 border border-dashed border-gray-800 rounded-xl">
+                <div className="text-gray-500 text-sm text-center p-6 border border-dashed border-gray-800 rounded-lg">
                   Nenhum alvo no radar.
                 </div>
               )}
